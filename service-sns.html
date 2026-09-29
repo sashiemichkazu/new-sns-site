@@ -1,131 +1,270 @@
 <!doctype html>
 <html lang="ja">
 <head>
+<script>if("scrollRestoration"in history)history.scrollRestoration="manual";window.scrollTo(0,0);</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SNSアカウント運用 — GENSO</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap">
 <style>
   :root {
-    --bg: #FFFFFF; --bg-accent: #071828; --text: #071828;
-    --lime: #00CCFF; --rule: #C0D8F0; color-scheme: light;
+    --bg: #FFFFFF;
+    --bg-accent: #071828;
+    --text: #071828;
+    --lime: #00CCFF;
+    --rule: #C0D8F0;
+    color-scheme: light;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; }
 
   nav {
-    position: fixed; top: env(safe-area-inset-top, 0px);
-    left: 0; right: 0; z-index: 200;
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0;
+    z-index: 200;
     padding: 0 clamp(16px, 5vw, 60px);
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px; background: var(--bg-accent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    background: var(--bg-accent);
   }
-  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-decoration: none;
+  }
   .logo-n { color: var(--lime); }
   .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-  .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
-  .nav-links a:hover { color: #fff; }
-  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.5em 1.3em; font-weight: 700; }
-  .nav-links .nav-cta-outline { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.35); }
-
-  .hero {
-    background: var(--bg-accent);
-    padding: clamp(100px, 14vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 80px);
-    position: relative; overflow: hidden;
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); text-decoration: none;
   }
-  .hero-bg {
+  .nav-links a:hover { color: #fff; }
+  .nav-links .nav-cta {
+    background: var(--lime); color: var(--bg-accent);
+    padding: 0.55em 1.5em; font-weight: 700;
+  }
+  .nav-links .nav-cta-outline {
+    background: transparent; color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(100px, 12vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 90px);
+    overflow: hidden;
+  }
+  .hero-photo {
     position: absolute; inset: 0;
     background-image: url('podcast.jpg');
-    background-size: cover; background-position: center;
-    opacity: 0.18;
+    background-size: cover;
+    background-position: center 40%;
   }
-  .hero-content { position: relative; z-index: 1; }
-  .hero-num { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; }
-  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.2rem; }
-  .hero-sub { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 520px; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(7,24,40,0.95) 0%, rgba(7,24,40,0.6) 50%, rgba(7,24,40,0.3) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-num {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--lime); margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 0.95; letter-spacing: -0.03em;
+    color: #fff; margin-bottom: 0;
+  }
 
-  .body-section {
+  /* CONTENT */
+  .content {
     padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
-    max-width: 840px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
   }
 
-  .lead { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 400; line-height: 1.75; color: var(--text); margin-bottom: 3rem; }
-
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
-  .feature { border-top: 2px solid var(--lime); padding-top: 1.2rem; }
-  .feature-num { font-family: 'Archivo Black', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--lime); margin-bottom: 0.6rem; }
-  .feature-title { font-family: 'Archivo Black', sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
-  .feature-body { font-size: 0.88rem; line-height: 1.7; color: #3A5060; }
-
-  .cta-block {
-    background: var(--bg-accent); color: #fff;
-    padding: clamp(40px, 6vw, 70px) clamp(16px, 5vw, 60px);
-    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  .big-label {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 2rem;
   }
-  .cta-block h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); }
-  .btn-cta {
-    display: inline-flex; align-items: center; gap: 0.6em;
-    background: var(--lime); color: var(--bg-accent);
-    font-family: 'Archivo Black', sans-serif; font-size: 0.85rem;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 1em 2em; text-decoration: none; white-space: nowrap;
+  .big-label .lime { color: #006EA0; }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--rule);
+    font-size: 1rem;
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--text);
+  }
+  .feature-list li::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--lime);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.35em;
   }
 
-  footer { background: var(--bg-accent); padding: 2rem clamp(16px,5vw,60px); display: flex; align-items: center; justify-content: space-between; }
-  .back-link { color: rgba(255,255,255,0.5); font-size: 0.8rem; text-decoration: none; }
-  .back-link:hover { color: #fff; }
-  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+  /* PHOTO ROW */
+  .photo-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 8px;
+  }
+  .photo-box {
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+  .photo-box img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    filter: brightness(0.85);
+  }
+  .photo-box.tall { aspect-ratio: 4/3; }
 
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .cta-block { flex-direction: column; align-items: flex-start; }
+  /* CTA */
+  .cta-band {
+    background: var(--lime);
+    padding: clamp(60px, 9vw, 100px) clamp(16px, 5vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .cta-band h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: var(--bg-accent);
+  }
+  .btn-dark {
+    display: inline-block;
+    background: var(--bg-accent); color: var(--lime);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.88rem; letter-spacing: 0.05em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 0.9em 2.5em; white-space: nowrap;
+  }
+
+  footer {
+    background: var(--bg-accent);
+    padding: 1.5rem clamp(16px, 5vw, 60px);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-size: 0.72rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .back-link {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--lime); }
+
+  @media (max-width: 700px) {
+    .content-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .photo-row { grid-template-columns: 1fr; }
+    .photo-box.tall { aspect-ratio: 4/3; }
+    .nav-links li:not(:last-child) { display: none; }
+    .cta-band { flex-direction: column; align-items: flex-start; }
   }
 </style>
+<script src="shared.js"></script>
 </head>
 <body>
 
-<script src="shared.js"></script>
-
 <div class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-num">SERVICE 01</p>
+    <p class="hero-num">01 — Service</p>
     <h1>SNS<br>アカウント<br>運用</h1>
-    <p class="hero-sub">投稿・分析・改善までをワンストップで。ブランドの世界観を守りながら、数字で結果を出すSNS運用を提供します。</p>
   </div>
 </div>
 
-<div class="body-section">
-  <p class="lead">
-    Instagram・TikTok・X（旧Twitter）など各プラットフォームの特性を熟知した制作メンバーが、投稿設計から運用代行まで一括対応。自社ブランド運営で培った「売れる投稿」のノウハウをそのままクライアントに還元します。
-  </p>
+<div class="content">
+  <div class="content-grid">
+    <div>
+      <h2 class="big-label">数多くの企業案件を手掛けるメンバーが<br><span class="lime">制作を担当</span><br>安心の運用体制</h2>
+    </div>
+    <ul class="feature-list">
+      <li>アカウント戦略・方針設計</li>
+      <li>投稿コンテンツの企画・制作</li>
+      <li>Instagram / TikTok 対応</li>
+      <li>数値分析・月次レポート</li>
+    </ul>
+  </div>
+</div>
 
-  <div class="features">
-    <div class="feature">
-      <p class="feature-num">01</p>
-      <p class="feature-title">アカウント設計</p>
-      <p class="feature-body">世界観・投稿頻度・KPIを最初に設計。ブレない軸で運用を開始します。</p>
+<div style="padding: 0 clamp(16px,5vw,60px) clamp(60px,9vw,110px); border-bottom: 1px solid var(--rule);">
+  <div class="photo-row">
+    <div class="photo-box">
+      <img src="gimbal.jpg" alt="">
     </div>
-    <div class="feature">
-      <p class="feature-num">02</p>
-      <p class="feature-title">コンテンツ制作</p>
-      <p class="feature-body">写真・動画・テキストを含む投稿コンテンツをすべて内製で制作します。</p>
-    </div>
-    <div class="feature">
-      <p class="feature-num">03</p>
-      <p class="feature-title">データ分析・改善</p>
-      <p class="feature-body">月次レポートで数値を可視化し、次月の施策に反映。PDCAを高速で回します。</p>
+    <div class="photo-box tall">
+      <img src="podcast.jpg" alt="">
     </div>
   </div>
 </div>
 
-<div class="cta-block">
-  <h2>まずはお気軽に<br>ご相談ください</h2>
-  <a href="contact.html" class="btn-cta">お問い合わせ →</a>
+<div class="cta-band">
+  <h2>まずは<br>ご相談を。</h2>
+  <a href="shiryou.html" class="btn-dark">資料請求 →</a>
 </div>
 
 <div id="site-footer"></div>
-
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function() { toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+  })();
+</script>
+<script>
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function(){ toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+    window.addEventListener('pageshow', function(e){ toTop(); });
+  })();
+</script>
 </body>
 </html>

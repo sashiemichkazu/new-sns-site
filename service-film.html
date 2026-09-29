@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ja">
 <head>
+<script>if("scrollRestoration"in history)history.scrollRestoration="manual";window.scrollTo(0,0);</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>本格的な横型映像 — GENSO</title>
@@ -19,112 +20,120 @@
     left: 0; right: 0; z-index: 200;
     padding: 0 clamp(16px, 5vw, 60px);
     display: flex; align-items: center; justify-content: space-between;
-    height: 60px; background: var(--bg-accent);
+    height: 68px; background: var(--bg-accent);
   }
-  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.4rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
   .logo-n { color: var(--lime); }
   .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-  .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
   .nav-links a:hover { color: #fff; }
-  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.5em 1.3em; font-weight: 700; }
+  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.55em 1.5em; font-weight: 700; }
   .nav-links .nav-cta-outline { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.35); }
 
   .hero {
-    background: var(--bg-accent);
-    padding: clamp(100px, 14vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 80px);
-    position: relative; overflow: hidden;
+    position: relative; min-height: 60vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: clamp(100px, 12vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 90px);
+    overflow: hidden;
   }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background-image: url('studio.jpg');
-    background-size: cover; background-position: center;
-    opacity: 0.18;
-  }
-  .hero-content { position: relative; z-index: 1; }
-  .hero-num { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; }
-  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.2rem; }
-  .hero-sub { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 520px; }
+  .hero-photo { position: absolute; inset: 0; background-image: url('studio.jpg'); background-size: cover; background-position: center 30%; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,24,40,0.95) 0%, rgba(7,24,40,0.6) 50%, rgba(7,24,40,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-num { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; }
 
-  .body-section {
-    padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
-    max-width: 840px;
-  }
-  .lead { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 400; line-height: 1.75; color: var(--text); margin-bottom: 3rem; }
+  .content { padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px); border-bottom: 1px solid var(--rule); }
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .big-label { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.8rem, 4vw, 3.5rem); letter-spacing: -0.03em; line-height: 1; color: var(--text); margin-bottom: 2rem; }
+  .big-label .lime { color: #006EA0; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; }
+  .feature-list li { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 0; border-top: 1px solid var(--rule); font-size: 1rem; font-family: 'Archivo Black', sans-serif; color: var(--text); }
+  .feature-list li::before { content: ''; width: 8px; height: 8px; background: var(--lime); border-radius: 50%; flex-shrink: 0; margin-top: 0.35em; }
 
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
-  .feature { border-top: 2px solid var(--lime); padding-top: 1.2rem; }
-  .feature-num { font-family: 'Archivo Black', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--lime); margin-bottom: 0.6rem; }
-  .feature-title { font-family: 'Archivo Black', sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
-  .feature-body { font-size: 0.88rem; line-height: 1.7; color: #3A5060; }
+  .photo-full { overflow: hidden; aspect-ratio: 16/7; border-bottom: 1px solid var(--rule); }
+  .photo-full img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.85); }
 
-  .cta-block {
-    background: var(--bg-accent); color: #fff;
-    padding: clamp(40px, 6vw, 70px) clamp(16px, 5vw, 60px);
-    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
-  }
-  .cta-block h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); }
-  .btn-cta {
-    display: inline-flex; align-items: center; gap: 0.6em;
-    background: var(--lime); color: var(--bg-accent);
-    font-family: 'Archivo Black', sans-serif; font-size: 0.85rem;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 1em 2em; text-decoration: none; white-space: nowrap;
-  }
+  .cta-band { background: var(--lime); padding: clamp(60px, 9vw, 100px) clamp(16px, 5vw, 60px); display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .cta-band h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -0.03em; line-height: 0.95; color: var(--bg-accent); }
+  .btn-dark { display: inline-block; background: var(--bg-accent); color: var(--lime); font-family: 'Archivo Black', sans-serif; font-size: 0.88rem; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; padding: 0.9em 2.5em; white-space: nowrap; }
 
-  footer { background: var(--bg-accent); padding: 2rem clamp(16px,5vw,60px); display: flex; align-items: center; justify-content: space-between; }
-  .back-link { color: rgba(255,255,255,0.5); font-size: 0.8rem; text-decoration: none; }
-  .back-link:hover { color: #fff; }
-  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+  footer { background: var(--bg-accent); padding: 1.5rem clamp(16px, 5vw, 60px); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 0.72rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .back-link { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .back-link:hover { color: var(--lime); }
 
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .cta-block { flex-direction: column; align-items: flex-start; }
+  @media (max-width: 700px) {
+    .content-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .nav-links li:not(:last-child) { display: none; }
+    .cta-band { flex-direction: column; align-items: flex-start; }
+    .photo-full { aspect-ratio: 4/3; }
   }
 </style>
+<script src="shared.js"></script>
 </head>
 <body>
 
-<script src="shared.js"></script>
-
 <div class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-num">SERVICE 03</p>
+    <p class="hero-num">03 — Service</p>
     <h1>本格的な<br>横型映像</h1>
-    <p class="hero-sub">ブランドムービー・企業VP・イベント映像など、クオリティで差をつける横型シネマティック映像制作。</p>
   </div>
 </div>
 
-<div class="body-section">
-  <p class="lead">
-    アイドルライブや大型イベントの映像撮影で培ったシネマティックな映像技術を、企業のブランディングに活用。スタジオ・ロケを問わず、カラーグレーディングまで含めた高品質な横型映像を提供します。
-  </p>
-
-  <div class="features">
-    <div class="feature">
-      <p class="feature-num">01</p>
-      <p class="feature-title">企画・演出</p>
-      <p class="feature-body">ブランドの世界観を映像で表現するコンセプト設計から絵コンテ作成まで対応します。</p>
+<div class="content">
+  <div class="content-grid">
+    <div>
+      <h2 class="big-label">自社ブランド運営の<br><span class="lime">ノウハウで高品質な</span><br>横型映像を撮影</h2>
     </div>
-    <div class="feature">
-      <p class="feature-num">02</p>
-      <p class="feature-title">撮影</p>
-      <p class="feature-body">シネマカメラ・ジンバル・ドローンを駆使した本格撮影。スタジオ・ロケ両対応。</p>
-    </div>
-    <div class="feature">
-      <p class="feature-num">03</p>
-      <p class="feature-title">編集・カラグレ</p>
-      <p class="feature-body">映像編集・カラーグレーディング・音楽選定・テロップデザインまで一貫して仕上げます。</p>
-    </div>
+    <ul class="feature-list">
+      <li>ブランドフィルム・PR動画</li>
+      <li>商品撮影・ルックブック動画</li>
+      <li>スタジオ / ロケーション撮影</li>
+      <li>音楽・ナレーション手配</li>
+      <li>納品後の運用サポート</li>
+    </ul>
   </div>
 </div>
 
-<div class="cta-block">
-  <h2>まずはお気軽に<br>ご相談ください</h2>
-  <a href="contact.html" class="btn-cta">お問い合わせ →</a>
+<div class="photo-full">
+  <img src="studio.jpg" alt="">
+</div>
+
+<div class="cta-band">
+  <h2>まずは<br>ご相談を。</h2>
+  <a href="shiryou.html" class="btn-dark">資料請求 →</a>
 </div>
 
 <div id="site-footer"></div>
-
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function() { toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+  })();
+</script>
+<script>
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function(){ toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+    window.addEventListener('pageshow', function(e){ toTop(); });
+  })();
+</script>
 </body>
 </html>
