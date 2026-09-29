@@ -163,11 +163,15 @@
     background: var(--bg-accent);
     overflow: hidden;
     padding: 0.8rem 0;
-    display: flex;
   }
   .ticker-inner {
     display: flex;
-    flex-shrink: 0;
+    width: max-content;
+    animation: ticker 22s linear infinite;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
   .ticker-item {
     font-family: 'Archivo Black', sans-serif;
@@ -496,24 +500,7 @@
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Ticker: clone once, then animate by measured width
-  document.addEventListener('DOMContentLoaded', function() {
-    var inner = document.getElementById('ticker-inner');
-    if (!inner) return;
-    // Clone the original set and append it
-    var clone = inner.cloneNode(true);
-    clone.removeAttribute('id');
-    inner.parentNode.appendChild(clone);
-    // Measure one set width
-    var oneSetW = inner.scrollWidth;
-    // Create keyframes and apply
-    var style = document.createElement('style');
-    style.textContent = '@keyframes ticker-js{from{transform:translateX(0)}to{transform:translateX(-' + oneSetW + 'px)}}';
-    document.head.appendChild(style);
-    [inner, clone].forEach(function(el) {
-      el.style.animation = 'ticker-js 20s linear infinite';
-    });
-  });
+
 </script>
 
 <script src="shared.js"></script>
@@ -534,7 +521,13 @@
 </div>
 
 <div class="ticker-strip">
-  <div class="ticker-inner" id="ticker-inner">
+  <div class="ticker-inner">
+    <span class="ticker-item">SNS運用</span>
+    <span class="ticker-item">縦型ショート動画</span>
+    <span class="ticker-item">本格的な横型映像</span>
+    <span class="ticker-item">コンテンツ企画</span>
+    <span class="ticker-item">アカウント運用</span>
+    <span class="ticker-item">ブランド動画</span>
     <span class="ticker-item">SNS運用</span>
     <span class="ticker-item">縦型ショート動画</span>
     <span class="ticker-item">本格的な横型映像</span>
