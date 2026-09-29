@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>お問い合わせ — GOKEN</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap">
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-accent: #071828; --text: #071828;
+    --lime: #00CCFF; --rule: #C0D8F0; color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0; z-index: 200;
+    padding: 0 clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; background: var(--bg-accent);
+  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+  .logo-n { color: var(--lime); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.5em 1.3em; font-weight: 700; }
+  .nav-links .nav-cta-outline { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.35); }
+
+  .hero {
+    background: var(--bg-accent);
+    padding: clamp(100px, 14vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 80px);
+  }
+  .hero-num { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 1rem; }
+  .hero-sub { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 480px; }
+
+  .form-section {
+    padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
+    max-width: 720px;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+  .form-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #1A6090;
+  }
+  .form-label .req { color: var(--lime); margin-left: 0.3em; font-size: 0.8em; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 0.9em 1.1em;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    background: #F4F9FC;
+    color: var(--text);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: #1A6090;
+    background: #fff;
+  }
+  .form-textarea { resize: vertical; min-height: 160px; line-height: 1.7; }
+  .form-select-wrap { position: relative; }
+  .form-select-wrap::after {
+    content: '▾'; position: absolute; right: 1.1em; top: 50%;
+    transform: translateY(-50%); color: #1A6090; pointer-events: none;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .btn-submit {
+    display: inline-flex; align-items: center; gap: 0.7em;
+    background: var(--bg-accent); color: var(--lime);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    padding: 1em 2.5em; margin-top: 1rem;
+    transition: opacity 0.15s;
+  }
+  .btn-submit:hover { opacity: 0.85; }
+
+  .form-note {
+    font-size: 0.8rem; color: #5A7898; line-height: 1.7;
+    margin-top: 1.5rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Thanks state */
+  .thanks { display: none; padding: 3rem 0; }
+  .thanks-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .thanks h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.5rem, 3vw, 2.5rem); letter-spacing: -0.02em; color: var(--text); margin-bottom: 1rem; }
+  .thanks p { font-size: 0.95rem; color: #3A5070; line-height: 1.8; }
+
+  footer {
+    background: var(--bg-accent); padding: 1.5rem clamp(16px, 5vw, 60px);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    margin-top: 0;
+  }
+  footer p { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .back-link { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .back-link:hover { color: var(--lime); }
+
+  @media (max-width: 700px) {
+    .nav-links li:not(:last-child) { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="shared.js"></script>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-num">Contact</p>
+  <h1>お問い合わせ</h1>
+  <p class="hero-sub">ご依頼・ご相談はお気軽にどうぞ。内容を確認次第、担当よりご連絡いたします。</p>
+</div>
+
+<div class="form-section">
+  <div id="form-wrap">
+    <form id="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">お名前<span class="req">必須</span></label>
+          <input type="text" class="form-input" placeholder="山田 太郎" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">会社名</label>
+          <input type="text" class="form-input" placeholder="株式会社〇〇">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">メールアドレス<span class="req">必須</span></label>
+        <input type="email" class="form-input" placeholder="info@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">お問い合わせ種別</label>
+        <div class="form-select-wrap">
+          <select class="form-select">
+            <option value="">選択してください</option>
+            <option>SNSアカウント運用について</option>
+            <option>縦型ショート動画制作について</option>
+            <option>横型映像制作について</option>
+            <option>料金・見積もりについて</option>
+            <option>その他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">お問い合わせ内容<span class="req">必須</span></label>
+        <textarea class="form-textarea" placeholder="ご依頼の内容や背景、ご要望などをお聞かせください。" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">送信する →</button>
+
+      <p class="form-note">送信いただいた情報は、お問い合わせへの回答・サービスご案内のみに使用します。3営業日以内にご返信いたします。</p>
+    </form>
+  </div>
+
+  <div class="thanks" id="thanks">
+    <div class="thanks-icon">✓</div>
+    <h2>お問い合わせを<br>受け付けました</h2>
+    <p>ご連絡いただきありがとうございます。<br>内容を確認の上、3営業日以内にご返信いたします。</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+</script>
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('thanks').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function(){ toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+    window.addEventListener('pageshow', function(){ toTop(); });
+  })();
+</script>
+</body>
+</html>

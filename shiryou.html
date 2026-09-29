@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<script>if("scrollRestoration"in history)history.scrollRestoration="manual";window.scrollTo(0,0);</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>資料請求 — GOKEN</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap">
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-accent: #071828; --text: #071828;
+    --lime: #00CCFF; --rule: #C0D8F0; color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0; z-index: 200;
+    padding: 0 clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; background: var(--bg-accent);
+  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+  .logo-n { color: var(--lime); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.5em 1.3em; font-weight: 700; }
+  .nav-links .nav-cta-outline { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.35); }
+
+  /* HERO */
+  .hero {
+    background: var(--bg-accent);
+    padding: clamp(100px, 14vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 80px);
+  }
+  .hero-num { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 1rem; }
+  .hero-sub { font-size: clamp(0.9rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; }
+
+  /* DOCS SECTION */
+  .docs-section {
+    padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
+  }
+  .section-label {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #1A6090; margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1px; background: #1A6090; }
+
+  .doc-list { display: flex; flex-direction: column; gap: 0; }
+
+  .doc-item {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    align-items: center;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .doc-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .doc-cover {
+    aspect-ratio: 3/2;
+    background: #DCEEf8;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .doc-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .doc-cover-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #CCE5F5 0%, #B0D5F0 100%);
+  }
+  .doc-cover-placeholder span {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(7,24,40,0.25);
+  }
+
+  .doc-info { display: flex; flex-direction: column; gap: 0.8rem; }
+  .doc-tag {
+    display: inline-block;
+    font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #1A6090; border: 1px solid var(--rule);
+    padding: 0.25em 0.8em; width: fit-content;
+  }
+  .doc-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.15;
+  }
+  .doc-desc {
+    font-size: 0.85rem;
+    color: #3A5870;
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .doc-action { flex-shrink: 0; }
+  .btn-dl {
+    display: flex; align-items: center; gap: 0.6em;
+    background: var(--lime);
+    color: var(--bg-accent);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; padding: 0.85em 1.8em;
+    white-space: nowrap;
+    border: none; cursor: pointer;
+  }
+  .btn-dl:hover { opacity: 0.88; }
+  .btn-dl-icon { font-size: 1em; }
+  .free-badge {
+    font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #1A6090; margin-top: 0.5rem; text-align: center;
+  }
+
+  /* CONTACT CTA */
+  .cta-band {
+    background: var(--lime);
+    padding: clamp(60px, 9vw, 100px) clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .cta-band h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: -0.03em; line-height: 0.95; color: var(--bg-accent);
+  }
+  .btn-dark {
+    display: inline-block; background: var(--bg-accent); color: var(--lime);
+    font-family: 'Archivo Black', sans-serif; font-size: 0.88rem;
+    letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+    padding: 0.9em 2.2em; white-space: nowrap;
+  }
+
+  footer {
+    background: var(--bg-accent); padding: 1.5rem clamp(16px, 5vw, 60px);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .back-link { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .back-link:hover { color: var(--lime); }
+
+  @media (max-width: 700px) {
+    .nav-links li:not(:last-child) { display: none; }
+    .doc-item { grid-template-columns: 1fr; gap: 1.5rem; }
+    .doc-cover { max-width: 240px; }
+    .doc-action { display: flex; flex-direction: column; align-items: flex-start; }
+    .cta-band { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<script src="shared.js"></script>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-num">Free Download</p>
+  <h1>資料請求</h1>
+  <p class="hero-sub">GOKENのサービス資料を無料でダウンロードいただけます。</p>
+</div>
+
+<div class="docs-section">
+  <p class="section-label">Documents</p>
+  <div class="doc-list">
+
+    <div class="doc-item">
+      <div class="doc-cover">
+        <div class="doc-cover-placeholder"><span>Cover Image</span></div>
+      </div>
+      <div class="doc-info">
+        <span class="doc-tag">Service Overview</span>
+        <p class="doc-title">GOKEN サービス資料</p>
+        <p class="doc-desc">SNSアカウント運用・縦型ショート動画・横型映像制作の各サービス概要をまとめた資料です。各プランの料金目安も掲載しています。</p>
+      </div>
+      <div class="doc-action">
+        <a href="#" class="btn-dl"><span class="btn-dl-icon">↓</span> 無料DL</a>
+        <p class="free-badge">Free</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2>まずは<br>ご相談を。</h2>
+  <a href="shiryou.html" class="btn-dark">資料請求 →</a>
+</div>
+
+<div id="site-footer"></div>
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function() { toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+  })();
+</script>
+<script>
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function(){ toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+    window.addEventListener('pageshow', function(e){ toTop(); });
+  })();
+</script>
+</body>
+</html>

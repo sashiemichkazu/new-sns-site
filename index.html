@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GENSO</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-accent: #071828;
+    --text: #071828;
+    --lime: #00CCFF;
+    --rule: #C0D8F0;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Archivo', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0;
+    z-index: 200;
+    padding: 0 clamp(16px, 5vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    transition: background 0.3s;
+  }
+  nav.scrolled { background: var(--bg-accent); }
+
+  .logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-decoration: none;
+  }
+  .logo-n { color: var(--lime); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links .nav-cta {
+    background: var(--lime);
+    color: var(--bg-accent);
+    padding: 0.5em 1.3em;
+    font-weight: 700;
+  }
+  .nav-links .nav-cta-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+  .nav-links .nav-cta-outline:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px clamp(16px, 5vw, 60px) clamp(40px, 7vw, 80px);
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background-image: url('studio.jpg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(7,24,40,0.96) 0%,
+      rgba(7,24,40,0.65) 40%,
+      rgba(7,24,40,0.2) 100%
+    );
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.6rem, 7vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+  .hero h1 .lime { color: var(--lime); }
+
+  .hero-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .hero-svc {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.9rem;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    padding: 0.5em 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    line-height: 1;
+  }
+  .hero-svc::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--bg-accent);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9em 2.2em;
+  }
+
+  /* ── TICKER ── */
+  .ticker-strip {
+    background: var(--bg-accent);
+    overflow: hidden;
+    padding: 0.8rem 0;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 3rem;
+    animation: ticker 20s linear infinite;
+    width: max-content;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-item {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--lime);
+    white-space: nowrap;
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .svc-panel {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+  .svc-panel img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.4);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .svc-panel:hover img { filter: brightness(0.6); transform: scale(1.05); }
+  .svc-panel-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--lime);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+    z-index: 2;
+  }
+  .svc-panel:hover .svc-panel-bar { transform: scaleX(1); }
+  .svc-panel-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(1.2rem, 4vw, 2.5rem);
+    background: linear-gradient(to top, rgba(7,24,40,0.85) 0%, transparent 60%);
+    z-index: 1;
+  }
+  .svc-panel-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--lime);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .svc-panel-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  /* ── CEO ── */
+  #ceo {
+    background: var(--bg);
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    min-height: 75vh;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .ceo-photo {
+    position: relative;
+    overflow: hidden;
+  }
+  .ceo-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .ceo-photo-placeholder {
+    width: 100%; height: 100%;
+    min-height: 500px;
+    background: #DCEEf8;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 2rem;
+  }
+  .ceo-photo-placeholder span {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(7,24,40,0.2);
+  }
+  .ceo-content {
+    padding: clamp(50px, 8vw, 90px) clamp(30px, 6vw, 80px);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .ceo-top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+  }
+  .ceo-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #1A6090;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .ceo-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: #1A6090;
+    flex-shrink: 0;
+  }
+  .ceo-catch {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.6rem, 3.2vw, 3rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  .ceo-catch em {
+    font-style: normal;
+    color: #006EA0;
+  }
+  .ceo-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--lime);
+    flex-shrink: 0;
+  }
+  .ceo-body {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.9;
+    color: #3A5070;
+  }
+
+  /* ── BRANDS ── */
+  #brands {
+    background: var(--bg-accent);
+    padding: clamp(50px, 9vw, 110px) clamp(16px, 5vw, 60px);
+  }
+  .brands-heading {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 4.5rem);
+    letter-spacing: -0.03em;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+  .brands-heading .lime { color: var(--lime); }
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .brand-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+  }
+  .brand-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.45);
+    transition: filter 0.4s, transform 0.5s;
+  }
+  .brand-card:hover img { filter: brightness(0.65); transform: scale(1.05); }
+  .brand-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(7,24,40,0.9) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(1rem, 3vw, 1.8rem);
+  }
+  .brand-cat {
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 0.3rem;
+  }
+  .brand-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: clamp(50px, 9vw, 110px) clamp(16px, 5vw, 60px);
+    border-top: 1px solid var(--rule);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-heading {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .about-heading .lime { color: var(--lime); }
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-top: 1px solid var(--rule); }
+  .info-table td {
+    padding: 1rem 0;
+    font-size: 0.88rem;
+    color: var(--text);
+    vertical-align: top;
+  }
+  .info-table td:first-child {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1A6090;
+    font-weight: 500;
+    width: 6.5rem;
+    padding-top: 1.1rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: clamp(60px, 12vw, 140px) clamp(16px, 5vw, 60px);
+    background: var(--lime);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .contact-h {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.8rem, 9vw, 8rem);
+    letter-spacing: -0.03em;
+    color: var(--bg-accent);
+    line-height: 0.9;
+  }
+  .btn-dark {
+    display: inline-block;
+    background: var(--bg-accent);
+    color: var(--lime);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9em 2.2em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg-accent);
+    padding: 1.5rem clamp(16px, 5vw, 60px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer p {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 700px) {
+    .nav-links li:not(:last-child) { display: none; }
+
+    .hero { padding-bottom: 50px; }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 1.6rem; }
+    .hero-services { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .hero-svc { font-size: 0.85rem; }
+
+    #services { grid-template-columns: 1fr; }
+    .svc-panel { aspect-ratio: 16/9; }
+    .svc-panel-title { font-size: 1.5rem; }
+
+    .brands-grid { grid-template-columns: 1fr; gap: 6px; }
+    .brand-card { aspect-ratio: 16/9; }
+    .brand-name { font-size: 1.6rem; }
+
+    #ceo { grid-template-columns: 1fr; }
+    .ceo-photo { min-height: 320px; }
+    .ceo-photo-placeholder { min-height: 320px; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-heading { font-size: 2.5rem; }
+
+    .contact-h { font-size: 3rem; }
+  }
+</style>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>
+
+<script src="shared.js"></script>
+
+<div class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-label">Tokyo — SNS &amp; Video Production</p>
+    <h1>ブランド×動画を<br><span class="lime">作るなら</span></h1>
+    <div class="hero-services">
+      <span class="hero-svc">SNS運用</span>
+      <span class="hero-svc">縦型ショート動画</span>
+      <span class="hero-svc">本格的な横型映像</span>
+    </div>
+    <a href="shiryou.html" class="hero-cta">資料請求 →</a>
+  </div>
+</div>
+
+<div class="ticker-strip">
+  <div class="ticker-inner">
+    <span class="ticker-item">SNS運用</span>
+    <span class="ticker-item">縦型ショート動画</span>
+    <span class="ticker-item">本格的な横型映像</span>
+    <span class="ticker-item">コンテンツ企画</span>
+    <span class="ticker-item">アカウント運用</span>
+    <span class="ticker-item">ブランド動画</span>
+    <span class="ticker-item">SNS運用</span>
+    <span class="ticker-item">縦型ショート動画</span>
+    <span class="ticker-item">本格的な横型映像</span>
+    <span class="ticker-item">コンテンツ企画</span>
+    <span class="ticker-item">アカウント運用</span>
+    <span class="ticker-item">ブランド動画</span>
+  </div>
+</div>
+
+<div id="services">
+  <a href="service-sns.html" class="svc-panel">
+    <div class="svc-panel-bar"></div>
+    <img src="podcast.jpg" alt="SNS運用">
+    <div class="svc-panel-overlay">
+      <p class="svc-panel-num">01</p>
+      <p class="svc-panel-title">SNS<br>アカウント運用</p>
+    </div>
+  </a>
+  <a href="service-short.html" class="svc-panel">
+    <div class="svc-panel-bar"></div>
+    <img src="gimbal.jpg" alt="縦型ショート動画">
+    <div class="svc-panel-overlay">
+      <p class="svc-panel-num">02</p>
+      <p class="svc-panel-title">縦型<br>ショート動画</p>
+    </div>
+  </a>
+  <a href="service-film.html" class="svc-panel">
+    <div class="svc-panel-bar"></div>
+    <img src="studio.jpg" alt="本格的な横型映像">
+    <div class="svc-panel-overlay">
+      <p class="svc-panel-num">03</p>
+      <p class="svc-panel-title">本格的な<br>横型映像</p>
+    </div>
+  </a>
+</div>
+
+<div id="ceo">
+  <div class="ceo-photo">
+    <img src="gimbal.jpg" alt="Representative">
+  </div>
+  <div class="ceo-content">
+    <div class="ceo-top">
+      <p class="ceo-label">Representative</p>
+      <p class="ceo-catch"><em>SNS用のショート動画</em>を中心にブランディングの横型映像まで可能</p>
+      <div class="ceo-divider"></div>
+      <p class="ceo-body">制作メンバーはアイドルのライブ映像から企業のTikTok・Instagram運用まで幅広く対応。ブランドのリアルな映像からAIを活用した動画制作まで、企業の映像制作に強みがあります。</p>
+    </div>
+  </div>
+</div>
+
+<div id="brands">
+  <p class="brands-heading">自社ブランド運営で得た<br><span class="lime">ノウハウを活用</span></p>
+  <div class="brands-grid">
+    <div class="brand-card">
+      <img src="fashion.jpg" alt="ILOKE">
+      <div class="brand-overlay">
+        <p class="brand-cat">Apparel</p>
+        <p class="brand-name">ILOKE</p>
+      </div>
+    </div>
+    <div class="brand-card">
+      <img src="furniture.jpg" alt="omonma">
+      <div class="brand-overlay">
+        <p class="brand-cat">Furniture</p>
+        <p class="brand-name">omonma</p>
+      </div>
+    </div>
+    <div class="brand-card">
+      <img src="hotdog.jpg" alt="PLAY GOD">
+      <div class="brand-overlay">
+        <p class="brand-cat">Apparel &amp; Food</p>
+        <p class="brand-name">PLAY GOD</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="about">
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading">GENS<span class="lime">O</span></h2>
+    </div>
+    <table class="info-table">
+      <tr><td>代表者</td><td>吉田 拓哉</td></tr>
+      <tr><td>所在地</td><td>東京都</td></tr>
+      <tr><td>事業内容</td><td>SNSマーケティング / 映像制作 / コンテンツ企画 / 衣料品製造・販売 / 家具製造・販売 / 飲食店経営</td></tr>
+      <tr><td>自社ブランド</td><td>ILOKE / omonma / PLAY GOD</td></tr>
+    </table>
+  </div>
+</div>
+
+<div id="contact">
+  <p class="contact-h">まずは<br>ご相談<br>ください。</p>
+  <a href="#" class="btn-dark">お問い合わせフォームへ →</a>
+</div>
+
+<div id="site-footer"></div>

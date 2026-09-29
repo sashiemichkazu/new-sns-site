@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<script>if("scrollRestoration"in history)history.scrollRestoration="manual";window.scrollTo(0,0);</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GENSOについて — GENSO</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap">
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-accent: #071828; --text: #071828;
+    --lime: #00CCFF; --rule: #C0D8F0; color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0; z-index: 200;
+    padding: 0 clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; background: var(--bg-accent);
+  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+  .logo-n { color: var(--lime); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.5em 1.3em; font-weight: 700; }
+  .nav-links .nav-cta-outline { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.35); }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 60vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: clamp(100px, 12vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 90px);
+    overflow: hidden;
+  }
+  .hero-photo { position: absolute; inset: 0; background-image: url('studio.jpg'); background-size: cover; background-position: center 40%; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,24,40,0.95) 0%, rgba(7,24,40,0.6) 50%, rgba(7,24,40,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-num { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 1rem; }
+  .hero-sub { font-size: clamp(0.9rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; }
+
+  /* MESSAGE */
+  .message-section {
+    padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
+    border-bottom: 1px solid var(--rule);
+    max-width: 760px;
+  }
+  .message-section .section-label { margin-bottom: 2.5rem; }
+  .message-lead {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    letter-spacing: -0.02em; line-height: 1.3;
+    color: var(--text); margin-bottom: 2rem;
+  }
+  .message-body {
+    font-size: 0.95rem; line-height: 2; color: #3A5070;
+  }
+  .message-body p + p { margin-top: 1.4em; }
+
+  /* CEO */
+  .ceo-section {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    min-height: 70vh;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ceo-photo {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+  }
+  .ceo-photo-placeholder {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #CCE5F5 0%, #c2ddc2 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ceo-photo-placeholder span {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(7,24,40,0.2);
+  }
+  .ceo-content {
+    padding: clamp(50px, 7vw, 90px) clamp(30px, 5vw, 70px);
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--bg);
+  }
+  .ceo-label {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #1A6090; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .ceo-label::before { content: ''; width: 24px; height: 1px; background: #1A6090; }
+  .ceo-catch {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    letter-spacing: -0.02em; line-height: 1.2;
+    color: var(--text); margin-bottom: 1.5rem;
+  }
+  .ceo-catch em { color: #006EA0; font-style: normal; }
+  .ceo-divider { width: 40px; height: 2px; background: var(--lime); margin-bottom: 1.5rem; }
+  .ceo-body {
+    font-size: 0.92rem; line-height: 1.85; color: #3A5070;
+    max-width: 520px; margin-bottom: 2rem;
+  }
+  .ceo-name-block { border-top: 1px solid var(--rule); padding-top: 1.2rem; }
+  .ceo-name { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.01em; color: var(--text); }
+  .ceo-title { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #1A6090; margin-top: 0.3rem; }
+
+  /* INFO */
+  .info-section {
+    padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-label {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #1A6090; margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1px; background: #1A6090; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .info-heading {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: -0.03em; line-height: 1; color: var(--text);
+  }
+  .info-heading .lime { color: var(--lime); }
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-top: 1px solid var(--rule); }
+  .info-table tr:last-child { border-bottom: 1px solid var(--rule); }
+  .info-table td { padding: 1.2rem 0; font-size: 0.9rem; vertical-align: top; line-height: 1.7; }
+  .info-table td:first-child { color: #1A6090; font-weight: 500; width: 7rem; white-space: nowrap; }
+
+  /* CTA */
+  .cta-band {
+    background: var(--lime);
+    padding: clamp(60px, 9vw, 100px) clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .cta-band h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: -0.03em; line-height: 0.95; color: var(--bg-accent);
+  }
+  .btn-dark {
+    display: inline-block; background: var(--bg-accent); color: var(--lime);
+    font-family: 'Archivo Black', sans-serif; font-size: 0.88rem;
+    letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+    padding: 0.9em 2.2em; white-space: nowrap;
+  }
+
+  footer {
+    background: var(--bg-accent); padding: 1.5rem clamp(16px, 5vw, 60px);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .back-link { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .back-link:hover { color: var(--lime); }
+
+  .rep-photo {
+    aspect-ratio: 1/1;
+    background: var(--bg-accent);
+    overflow: hidden;
+    position: relative;
+  }
+  .rep-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .rep-label {
+    position: absolute; bottom: 1.2rem; left: 1.2rem;
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--lime);
+  }
+  .message-content { display: flex; flex-direction: column; gap: 0; }
+
+  @media (max-width: 700px) {
+    .nav-links li:not(:last-child) { display: none; }
+    .message-section { grid-template-columns: 1fr; gap: 2.5rem; }
+    .rep-photo { aspect-ratio: 4/3; max-width: 100%; }
+    .info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cta-band { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+<script src="shared.js"></script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-num">About</p>
+    <h1>GENSOに<br>ついて</h1>
+    <p class="hero-sub">SNSマーケティングと映像制作を軸に、複数のブランドを自社で運営する制作会社です。</p>
+  </div>
+</div>
+
+<!-- 代表プロフィール -->
+<div class="ceo-section">
+  <div class="ceo-photo">
+    <img src="gimbal.jpg" alt="Representative" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+  </div>
+  <div class="ceo-content">
+    <p class="ceo-label">Representative</p>
+    <p class="ceo-catch"><em>SNS用のショート動画</em>を中心にブランディングの横型映像まで可能</p>
+    <div class="ceo-divider"></div>
+    <p class="ceo-body">代表の吉田は美大を卒業後、インテリアや教育業界を渡り歩いたあと、SNS動画の企業で縦型ショート動画制作のプロデューサー/ディレクター/マーケターとして数々の企業案件を手掛ける。その後、日本を代表するAI開発の企業でマーケティングを担当。さらにアパレルや家具、飲食など複数のブランドも運営。そのノウハウを活かし、ブランドのリアルな映像からAIを活用した動画制作まで多種多様に対応可能。制作メンバーは本格的なアイドルのライブ映像のほか、企業のTikTokアカウント運用やインスタグラムなどのショート動画をメインで活動しており、企業の動画制作に強みがあります。</p>
+  </div>
+</div>
+
+<!-- 代表メッセージ -->
+<div class="message-section">
+  <div class="message-content">
+    <p class="section-label">Message</p>
+    <p class="message-lead">自社ブランドで積み上げたノウハウで、縦型から横型まで安心の制作体制を</p>
+    <div class="message-body">
+      <p>GENSOは、自社でアパレル・家具・飲食など複数のブランドを運営してきた経験をそのままクライアントの制作に活かします。ブランドの世界観を理解した上で映像をつくる——それが私たちの一番の強みです。</p>
+      <p>私自身、美大卒業後にインテリアや教育の現場を経験し、SNS動画制作の現場でプロデューサー・ディレクター・マーケターとして企業案件に携わってきました。その後はAI企業のマーケティング、アパレル・家具・飲食ブランドの運営と、常に「つくること」と「売ること」の両方に向き合ってきました。</p>
+      <p>GENSOが提供するのは、単なる制作物ではなく、ブランドが成長するための映像と運用です。まずは気軽にご相談ください。</p>
+      <p style="margin-top:2rem; font-family:'Archivo Black',sans-serif; font-size:1rem; color:var(--text);">吉田 拓哉 <span style="font-family:'Archivo',sans-serif; font-size:0.75rem; font-weight:400; color:#1A6090; letter-spacing:0.08em; margin-left:0.8rem;">Representative / GENSO</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- 会社情報 -->
+
+<div class="info-section">
+  <p class="section-label">Info</p>
+  <div class="info-grid">
+    <div>
+      <h2 class="info-heading">GENS<span class="lime">O</span></h2>
+    </div>
+    <table class="info-table">
+      <tr><td>代表者</td><td>吉田 拓哉</td></tr>
+      <tr><td>所在地</td><td>東京都</td></tr>
+      <tr><td>事業内容</td><td>SNSマーケティング / 映像制作 / コンテンツ企画 / 衣料品製造・販売 / 家具製造・販売 / 飲食店経営</td></tr>
+      <tr><td>自社ブランド</td><td>ILOKE / omonma / PLAY GOD</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2>まずは<br>ご相談を。</h2>
+  <a href="shiryou.html" class="btn-dark">資料請求 →</a>
+</div>
+
+<div id="site-footer"></div>
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function() { toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+  })();
+</script>
+<script>
+  (function() {
+    function toTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+    toTop();
+    requestAnimationFrame(function(){ toTop(); requestAnimationFrame(toTop); });
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+    window.addEventListener('pageshow', function(e){ toTop(); });
+  })();
+</script>
+</body>
+</html>
