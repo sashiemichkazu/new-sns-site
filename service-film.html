@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>本格的な横型映像 — GENSO</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap">
+<style>
+  :root {
+    --bg: #FFFFFF; --bg-accent: #071828; --text: #071828;
+    --lime: #00CCFF; --rule: #C0D8F0; color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0; z-index: 200;
+    padding: 0 clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; background: var(--bg-accent);
+  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; letter-spacing: -0.02em; color: #fff; text-decoration: none; }
+  .logo-n { color: var(--lime); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links .nav-cta { background: var(--lime); color: var(--bg-accent); padding: 0.5em 1.3em; font-weight: 700; }
+  .nav-links .nav-cta-outline { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.35); }
+
+  .hero {
+    background: var(--bg-accent);
+    padding: clamp(100px, 14vw, 160px) clamp(16px, 5vw, 60px) clamp(50px, 7vw, 80px);
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('studio.jpg');
+    background-size: cover; background-position: center;
+    opacity: 0.18;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-num { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.2rem; }
+  .hero-sub { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 520px; }
+
+  .body-section {
+    padding: clamp(60px, 9vw, 110px) clamp(16px, 5vw, 60px);
+    max-width: 840px;
+  }
+  .lead { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 400; line-height: 1.75; color: var(--text); margin-bottom: 3rem; }
+
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+  .feature { border-top: 2px solid var(--lime); padding-top: 1.2rem; }
+  .feature-num { font-family: 'Archivo Black', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--lime); margin-bottom: 0.6rem; }
+  .feature-title { font-family: 'Archivo Black', sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
+  .feature-body { font-size: 0.88rem; line-height: 1.7; color: #3A5060; }
+
+  .cta-block {
+    background: var(--bg-accent); color: #fff;
+    padding: clamp(40px, 6vw, 70px) clamp(16px, 5vw, 60px);
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  }
+  .cta-block h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); }
+  .btn-cta {
+    display: inline-flex; align-items: center; gap: 0.6em;
+    background: var(--lime); color: var(--bg-accent);
+    font-family: 'Archivo Black', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 1em 2em; text-decoration: none; white-space: nowrap;
+  }
+
+  footer { background: var(--bg-accent); padding: 2rem clamp(16px,5vw,60px); display: flex; align-items: center; justify-content: space-between; }
+  .back-link { color: rgba(255,255,255,0.5); font-size: 0.8rem; text-decoration: none; }
+  .back-link:hover { color: #fff; }
+  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .cta-block { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<script src="shared.js"></script>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-num">SERVICE 03</p>
+    <h1>本格的な<br>横型映像</h1>
+    <p class="hero-sub">ブランドムービー・企業VP・イベント映像など、クオリティで差をつける横型シネマティック映像制作。</p>
+  </div>
+</div>
+
+<div class="body-section">
+  <p class="lead">
+    アイドルライブや大型イベントの映像撮影で培ったシネマティックな映像技術を、企業のブランディングに活用。スタジオ・ロケを問わず、カラーグレーディングまで含めた高品質な横型映像を提供します。
+  </p>
+
+  <div class="features">
+    <div class="feature">
+      <p class="feature-num">01</p>
+      <p class="feature-title">企画・演出</p>
+      <p class="feature-body">ブランドの世界観を映像で表現するコンセプト設計から絵コンテ作成まで対応します。</p>
+    </div>
+    <div class="feature">
+      <p class="feature-num">02</p>
+      <p class="feature-title">撮影</p>
+      <p class="feature-body">シネマカメラ・ジンバル・ドローンを駆使した本格撮影。スタジオ・ロケ両対応。</p>
+    </div>
+    <div class="feature">
+      <p class="feature-num">03</p>
+      <p class="feature-title">編集・カラグレ</p>
+      <p class="feature-body">映像編集・カラーグレーディング・音楽選定・テロップデザインまで一貫して仕上げます。</p>
+    </div>
+  </div>
+</div>
+
+<div class="cta-block">
+  <h2>まずはお気軽に<br>ご相談ください</h2>
+  <a href="contact.html" class="btn-cta">お問い合わせ →</a>
+</div>
+
+<div id="site-footer"></div>
+
+</body>
+</html>

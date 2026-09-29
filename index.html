@@ -163,13 +163,12 @@
     background: var(--bg-accent);
     overflow: hidden;
     padding: 0.8rem 0;
+    display: flex;
   }
   .ticker-inner {
     display: flex;
-    animation: ticker 20s linear infinite;
-    width: max-content;
+    flex-shrink: 0;
   }
-  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   .ticker-item {
     font-family: 'Archivo Black', sans-serif;
     font-size: 0.7rem;
@@ -496,6 +495,25 @@
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
   });
+
+  // Ticker: clone once, then animate by measured width
+  document.addEventListener('DOMContentLoaded', function() {
+    var inner = document.getElementById('ticker-inner');
+    if (!inner) return;
+    // Clone the original set and append it
+    var clone = inner.cloneNode(true);
+    clone.removeAttribute('id');
+    inner.parentNode.appendChild(clone);
+    // Measure one set width
+    var oneSetW = inner.scrollWidth;
+    // Create keyframes and apply
+    var style = document.createElement('style');
+    style.textContent = '@keyframes ticker-js{from{transform:translateX(0)}to{transform:translateX(-' + oneSetW + 'px)}}';
+    document.head.appendChild(style);
+    [inner, clone].forEach(function(el) {
+      el.style.animation = 'ticker-js 20s linear infinite';
+    });
+  });
 </script>
 
 <script src="shared.js"></script>
@@ -516,13 +534,7 @@
 </div>
 
 <div class="ticker-strip">
-  <div class="ticker-inner">
-    <span class="ticker-item">SNS運用</span>
-    <span class="ticker-item">縦型ショート動画</span>
-    <span class="ticker-item">本格的な横型映像</span>
-    <span class="ticker-item">コンテンツ企画</span>
-    <span class="ticker-item">アカウント運用</span>
-    <span class="ticker-item">ブランド動画</span>
+  <div class="ticker-inner" id="ticker-inner">
     <span class="ticker-item">SNS運用</span>
     <span class="ticker-item">縦型ショート動画</span>
     <span class="ticker-item">本格的な横型映像</span>
@@ -533,7 +545,7 @@
 </div>
 
 <div id="services">
-  <a href="contact.html" class="svc-panel">
+  <a href="service-sns.html" class="svc-panel">
     <div class="svc-panel-bar"></div>
     <img src="podcast.jpg" alt="SNS運用">
     <div class="svc-panel-overlay">
@@ -541,7 +553,7 @@
       <p class="svc-panel-title">SNS<br>アカウント運用</p>
     </div>
   </a>
-  <a href="contact.html" class="svc-panel">
+  <a href="service-short.html" class="svc-panel">
     <div class="svc-panel-bar"></div>
     <img src="gimbal.jpg" alt="縦型ショート動画">
     <div class="svc-panel-overlay">
@@ -549,7 +561,7 @@
       <p class="svc-panel-title">縦型<br>ショート動画</p>
     </div>
   </a>
-  <a href="contact.html" class="svc-panel">
+  <a href="service-film.html" class="svc-panel">
     <div class="svc-panel-bar"></div>
     <img src="studio.jpg" alt="本格的な横型映像">
     <div class="svc-panel-overlay">
