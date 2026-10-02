@@ -167,7 +167,8 @@
   .ticker-inner {
     display: flex;
     width: max-content;
-    animation: ticker 22s linear infinite;
+    will-change: transform;
+    animation: ticker 28s linear infinite;
   }
   @keyframes ticker {
     from { transform: translateX(0); }
@@ -346,6 +347,11 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
+  a.brand-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
   .brand-card {
     position: relative;
     overflow: hidden;
@@ -497,7 +503,8 @@
 
 <script>
   window.addEventListener('scroll', () => {
-    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
+    var nav = document.querySelector('nav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
 
@@ -581,27 +588,27 @@
 <div id="brands">
   <p class="brands-heading">自社ブランド運営で得た<br><span class="lime">ノウハウを活用</span></p>
   <div class="brands-grid">
-    <div class="brand-card">
+    <a href="https://iloke.jp/" target="_blank" rel="noopener noreferrer" class="brand-card">
       <img src="fashion.jpg" alt="ILOKE">
       <div class="brand-overlay">
         <p class="brand-cat">Apparel</p>
         <p class="brand-name">ILOKE</p>
       </div>
-    </div>
-    <div class="brand-card">
+    </a>
+    <a href="https://omonma.jp/" target="_blank" rel="noopener noreferrer" class="brand-card">
       <img src="furniture.jpg" alt="omonma">
       <div class="brand-overlay">
         <p class="brand-cat">Furniture</p>
         <p class="brand-name">omonma</p>
       </div>
-    </div>
-    <div class="brand-card">
+    </a>
+    <a href="https://play-god.jp/" target="_blank" rel="noopener noreferrer" class="brand-card">
       <img src="hotdog.jpg" alt="PLAY GOD">
       <div class="brand-overlay">
         <p class="brand-cat">Apparel &amp; Food</p>
         <p class="brand-name">PLAY GOD</p>
       </div>
-    </div>
+    </a>
   </div>
 </div>
 
@@ -625,3 +632,14 @@
 </div>
 
 <div id="site-footer"></div>
+<script>
+  /* ── TICKER: フォント読み込み完了後にピクセル幅で @keyframes を再計算 ── */
+  window.addEventListener('load', function () {
+    var inner = document.querySelector('.ticker-inner');
+    if (!inner) return;
+    var halfPx = Math.round(inner.scrollWidth / 2);
+    var s = document.createElement('style');
+    s.textContent = '@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-' + halfPx + 'px)}}';
+    document.head.appendChild(s);
+  });
+</script>
